@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.dev.js",
+  "private": true,
+  "homepage": "/habit-tracker",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.dev.js --open",
     "build:dev": "webpack --config ./webpack.dev.js",
