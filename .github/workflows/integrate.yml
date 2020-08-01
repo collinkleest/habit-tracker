@@ -2,34 +2,39 @@ name: HabitTracker CI/CD
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-    
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [10.x]
 
     steps:
-    - name: checkout code
-      uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node_version }}
-    - name: Installing NPM packages
-      run: npm install
-    - name: NPM Continous Integration test
-      run: npm ci
-    - name: Webpack Build to dist/
-      run: npm run build:prod
-    - name: Deploy to Github Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_dir: ./dist
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Installing NPM packages
+        run: npm install
+      - name: NPM Continous Integration test
+        run: npm ci
+      - name: Webpack Build to dist/
+        run: npm run build:prod
+      - name: install backend packages
+        run: cd ./backend/; npm install;
+      - name: (BACKEND) write out .env
+        run: echo 'MONGO_USERNAME=${{ secrets.MONGO_USERNAME }} \n MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \n MONGO_SERVER=${{ secrets.MONGO_SERVER }}' > ./backend/.env
+      - name: Run backend server
+        run: cd ./backend/; npm start;
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./dist

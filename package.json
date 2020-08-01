@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.dev.js",
   "private": true,
-  "homepage": "/habit-tracker",
+  "homepage": "https://github.com/collinkleest/habit-tracker#readme",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.dev.js --open",
     "build:dev": "webpack --config ./webpack.dev.js",
@@ -20,7 +20,6 @@
   "bugs": {
     "url": "https://github.com/collinkleest/habit-tracker/issues"
   },
-  "homepage": "https://github.com/collinkleest/habit-tracker#readme",
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
@@ -32,6 +31,8 @@
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "react-redux": "^7.2.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "sass-loader": "^9.0.2",
     "style-loader": "^1.2.1",
     "svg-inline-loader": "^0.8.2",
@@ -44,6 +45,7 @@
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
     "lodash": "^4.17.19",
+    "mongoose": "^5.9.25",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -59,5 +61,6 @@
       "ecmaVersion": 6,
       "sourceType": "module"
     }
-  }
+  },
+  "proxy": "http://localhost:3000"
 }

@@ -1,22 +1,34 @@
 import React from "react";
 import { LoginHeader } from "./LoginHeader";
-import { LoginField } from "./LoginField";
-import CKKLogo from "../../assets/logo3.png";
+import { InputField } from "./InputField";
+import { connect } from "react-redux";
+import { changeSelection } from "../../redux/actions/selectionActions";
+import { Link } from "react-router-dom";
 
-export const LoginForm = () => {
+const mapStateToProps = (state) => {
+  return {
+    selection: state.selection,
+  };
+};
+
+const LoginForm = (props) => {
   return (
-    <form className="container w-25">
+    <form>
       <LoginHeader
-        img={CKKLogo}
         title="Habit Tracker"
         desc="Please login to access your habits"
       />
-      <LoginField id="email-username" labelName="Email or Username" />
-      <LoginField id="password" labelName="Password" />
+      <InputField id="email-username" labelName="Email or Username" />
+      <InputField id="password" labelName="Password" />
       <button className="btn btn-primary btn-block">Login</button>
       <div className="text-center">
         <p>
-          <a href="#">Dont have an account? Create one</a>
+          <Link
+            to="/register"
+            onClick={() => props.dispatch(changeSelection("register"))}
+          >
+            Dont have an account? Create one
+          </Link>
         </p>
         <p>
           <a href="#">Forgot Password?</a>
@@ -25,3 +37,5 @@ export const LoginForm = () => {
     </form>
   );
 };
+
+export default connect(mapStateToProps)(LoginForm);
